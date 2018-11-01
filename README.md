@@ -1,6 +1,7 @@
 # compraVenditaLibri
 A web site that will allow the students to buy sell thems old school books.
-TODO:
+
+_TODO:_
 
 1.  -Home page, features: 
     ```
@@ -10,7 +11,12 @@ TODO:
     _sell button (if already in, send you to the selling page if not it will send you to the login one.)
     ```
 2.  -Login page, features: 
+    ```
     _username input 
     _password input
-DONE: 
+    ```
+3.
+    
+_DONE:_
+
   Nothing
