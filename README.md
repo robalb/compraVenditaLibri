@@ -3,10 +3,10 @@ A web site that will allow the students to buy sell thems old school books.
 
 _TODO:_
 
-#//////creazione account
+# //////creazione account
 nome,universita istituto frequentati, contatti(in ogni post si rendono visibili o meno), contatto conto paypal(per ricevere pagamenti per gli appunti venduti)
 
-#//////cosa fa
+# //////cosa fa
 -vendi libri o appunti 
 -compra libri o appunti
 
@@ -24,11 +24,11 @@ nome,universita istituto frequentati, contatti(in ogni post si rendono visibili 
 
 //Esistono 2 tipi di venditori, venditore comune e azienda/libreria (ma solo in futuro)
 
-#//////vendita di libri
+# //////vendita di libri
 
 //il venditore deve fornire 2 foto del libro in questione, fronte e retro, fatta eccezione per le dispense e scegliere quali contatti rendere visibili o meno.
 
-#//////vendita appunti/dispense
+# //////vendita appunti/dispense
 
 //Il venditore deve indicare il numero di pagine, alcune anteprime, prezzo.
 
