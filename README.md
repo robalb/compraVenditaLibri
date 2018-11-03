@@ -1,19 +1,20 @@
-# compraVenditaLibri
-A web site that will allow the students to buy sell thems old school books.
+# CompraVenditaLibri
 
-_TODO:_
+Un sito che permetterà agli studenti o ai loro genitori, di vendere o comprare libri usati direttamente da altri studenti, con grossi vantaggi da parte di entrambi!
 
-# //////creazione account
-nome,universita istituto frequentati, contatti(in ogni post si rendono visibili o meno), contatto conto paypal(per ricevere pagamenti per gli appunti venduti)
+# ||Creazione account||
 
-# //////cosa fa
--vendi libri o appunti 
--compra libri o appunti
+Per creare un account, si deve inserire il proprio nome, l'univesità/istituto nel quale si effettuano gli studi, i modi con i quali si può essere contattati, contatti che potranno essere resi visibili o non per ciascun libro in vendita.
+E nel caso si vogliono vendere degli appunti universitari, si deve fornire un conto Paypal, per poter ricevere in seguito le transazioni dei pagamenti.
 
-//libri consegna a mano
+# ||Cosa fa||
 
-//appunti solo download in rete, solo paypal, i venditori potranno prelevare i soldi solo dopo un tot minimo raggiunto.
+Il sito nel suo insieme, metterà in contatto l'acquirente e il venditore, in modo tale da tagliare fuori le 3e parti che di solito portano numerosi svantaggi...
+Quindi il sito non gestirà minimamente la parte di scambio, il venditore e l'acquirente dovranno decidere da soli come gestire lo scambio.
+Inoltre il sito permettera agli studenti universitari di vendere appunti ad altre persone, saranno prese delle misure di sicurezza riguardo alla pubblicazione di appunti dannosi, non soddisfacenti oppure semplicemente plagiati da altri utenti.
+Ogni venditore di appunti, per ciascun download, download che sarà reso possibile solo dopo che è stata eseguita la transazione con la cifra richiesta, riceverà in punti o comunque come bilancio virtuale la somma di denaro stabilita durante la pubblicazione dell'articolo, l'utente in seguito potrà richiedere il trasferimento del totale delle somme guadagnate ma solo e soltanto se viene raggiunto una somma minima.
 
+# ||Ricerca libri ed info||
 //se cerchi un libro vieni portato in una pagina di risultati, che permettera anche di cercare altri libri.
 
 //ciascun risultato mostrera le seguenti informazioni: nome del testo o del libro, il codice ISBN  solo se ce, nome del venditore e posizione(istituto/universita/citta)
