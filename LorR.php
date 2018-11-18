@@ -9,8 +9,11 @@
         if($_POST['action'] == 'login'){
             //call the SANITIZETOR  
         }
-        if($_POST['action'] == 'register'){
+        else if($_POST['action'] == 'register'){
             //call the SANITIZETOR
+        }
+        else{
+        
         }
     }
 ?>
