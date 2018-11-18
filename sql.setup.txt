@@ -1,0 +1,98 @@
+/*
+    DB quick setup file, 
+    you can run this code in 2 different ways, 
+    copy and put the code inside a php query or inside the console in your db graphical interface
+*/
+
+-- USERS ACCOUNT TABLE CREATION
+create table Accounts (
+    AccountId int(10) not null,
+    Name varchar(60) not null,
+    Password varchar(60) not null,
+    Email varchar(150) not null,
+    PhoneNumber int(10),
+    UniversityOrInstitute int(6) not null,
+    TokenAuthFb varchar(150),
+    RegistrationDate timestamp not null,
+    primary key (AccountId)
+);
+
+-- SALES TABLE CREATION
+create table BooksOnSale (
+    AccountId int(10) not null,
+    IdSale int(10) not null,
+    BookName varchar(100) not null,
+    Isbn int(13) not null,
+    Description varchar(1000),
+    PhotoOneUrl varchar(30),
+    PhotoTwoUrl varchar(30),
+    PhoneNumberVisibility bit not null,
+    EmailVisibility bit not null,
+    PublicationDate timestamp not null,
+    primary key (IdSale),
+    foreign key (AccountId) references Accounts (AccountId)
+);
+
+-- SEGNALATIONS TABLE CREATION
+create table Segnalations(
+    SegnalationId int(10) not null,
+    SegnalatedAccountId int(10) not null,
+    SegnalatedPostId int(10) not null,
+    SegnalatorsAccountId int(10) not null,
+    SegnalationReasonId int(1) not null,
+    SegnalationDate timestamp not null,
+    primary key (SegnalationId),
+    foreign key (SegnalatedAccountId) references Accounts (AccountId),
+    foreign key (SegnalatorsAccountId) references Accounts (AccountId),
+    foreign key (SegnalatedPostId) references BooksOnSale (IdSale)
+);
+
+--CREATING FEW ACCOUNTS 
+insert into Accounts (
+AccountId,
+Name,
+Password,
+Email,
+PhoneNumber,
+UniversityOrInstitute,
+TokenAuthFb,
+RegistrationDate
+)
+values(
+1000000000,
+'Olly',
+'1234567890ì!"£$%&/()=?QWERTYUIOPé+asdfgjhklò@#zxcvbnm,:_',
+'my@mail.com',
+1234567890,
+123456,
+'fasdfasdf',
+'2018-11-14 19:13:32'
+);
+
+insert into Accounts (
+AccountId,
+Name,
+Password,
+Email,
+PhoneNumber,
+UniversityOrInstitute,
+TokenAuthFb,
+RegistrationDate
+)
+values(
+1000000001,
+'Halb',
+'123456rewrq90ì!"£$%&/()=?QWERTYUIOPé+asdfgjhklò@#zxcvbnm,:_',
+'halb@mail.com',
+1234567891,
+123457,
+'fasdfasdf',
+'2018-11-14 10:13:40'
+);
+
+
+
+
+
+
+

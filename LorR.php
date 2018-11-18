@@ -1,20 +1,21 @@
 <?php
-    include_once("./phps/Sessions.class.php");
-    include_once("./phps/ConnectionDb.class.php");
-    $session = new SessionsManager('RealSession',1000);
-    if($session->sessionValidityControl()){
-        //session already exist
+    include_once("./classes/SessionManager.php");
+    //include_once("./phps/ConnectionDb.class.php");
+    $session = new SessionManager('RealSession',1000);
+    if($session->isValid()){
+        echo $_SESSION['username'];
+        echo $_SESSION['email'];
+        echo $_SESSION['universitaOIstituto'];
+        echo $_SESSION['password'];
     }
     else if(isset($_POST['action'])){
-        if($_POST['action'] == 'login'){
-            //call the SANITIZETOR  
+        if($_POST['action'] == 'register'){
+            
+            //rimando all index da aggiungere in seguito
         }
-        else if($_POST['action'] == 'register'){
-            //call the SANITIZETOR
-        }
-        else{
-        
-        }
+    }
+    else{
+        echo 'null';
     }
 ?>
 <htlm>
@@ -28,22 +29,20 @@
             }
         ?>
         <h2>
-            Login
-        </h2>
-        <form id="login" action="LorR.php" method="POST" >
-            <label>Login</label>
-            <input type="text" id="username" name="username"/>
-            <br/>
-            <br/>
-            <label>password</label>
-            <input type="password" id="password" name="password"/>
-            <input type="text" value="login" id="action" name="action" style="display:none"/>
-            <input type="submit" value="invio">
-        </form>
-        <form id="registration" action="LorR.php?action=registration" method="POST" style="display:none"> <!--display:none-->
+        <form id="registration" action="LorR.php" method="POST"> 
             <label>Registration</label>
-            <input type="text" id="username"/>
-            <!-- dude, potresti mettere qi la parte di registrazione che si puo scambiare grazie a js con quella di login premendo un semplice link?-->
+            <label>Nome:</label></br>
+            <input type="text" id="input_txt" name="username"/></br>
+            <label>Email:</label></br>
+            <input type="email" id="input_txt" name="email"/></br>
+            <label>Universita o istituto</label>
+            <select name="university" id="input_slct">
+                <option value="Hensemberger">Hensemberger</option>
+            </select></br>
+            <label>Password:</label></br>
+            <input type="password" id="input_txt" name="password"/></br>
+            <input type="hidden" name="action" value="register"/>
+            <input type="submit" id="input_butt">
         </form>
     </body>
 </html>

@@ -31,12 +31,21 @@
             }
         }
         
-        
-        public function validate(){
+        private function validate(){
             $_SESSION['__is_valid'] = true;
         }
+        
         public function isValid(){
             return isset($_SESSION['__is_valid']);
         }
+
+        public function sessionCreate($username,$email,$universitaOIstituto,$password){
+            $_SESSION['username'] = $username ;
+            $_SESSION['email'] = $email ;
+            $_SESSION['universitaOIstituto'] = $universitaOIstituto;
+            $_SESSION['password'] = $password;
+            $this->validate();
+        }
+
     }
 ?>
