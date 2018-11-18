@@ -5,7 +5,7 @@
     if($session->sessionValidityControl()){
         //session already exist
     }
-    else{
+    else if(isset($_POST['action'])){
         if($_POST['action'] == 'login'){
             //call the SANITIZETOR  
         }
