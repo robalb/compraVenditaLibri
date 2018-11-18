@@ -1,0 +1,31 @@
+<account>
+    v-Nome
+    v-Universita/istituto d'istruzione
+    v-Numero di telefono (opz)
+    v-Email 
+    v-ID account
+    v-Password
+    v-Token oauth di facebook(va scoperto come funziona)
+    v-Data di registrazione
+<sessioni>
+    v-Token di sessione
+    v-ID account 
+<libri in vendita>
+    v-Data post
+    v-Id account postatore
+    v-Id post
+    v-Descrizione
+    v-Nome libro
+    v-ISBN
+    v-Url foto 1
+    v-Url foto 2
+    v-Visibilita numero
+    v-Visibilita email
+<segnalazioni>
+    -Id segnalazione
+    -Id account segnalato
+    -Id post segnalato
+    -Id segnalatore
+    -Id motivo Di Segnalazione
+    -Data creazione segnalazione
+    
