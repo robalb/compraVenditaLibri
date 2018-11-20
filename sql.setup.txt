@@ -6,17 +6,18 @@
 
 -- USERS ACCOUNT TABLE CREATION
 create table Accounts (
-    AccountId int(10) not null,
-    Name varchar(60) not null,
-    Password varchar(60) not null,
+    AccountId bigint(10) not null,
+    Name varchar(140) not null,
+    Password varchar(256) not null,
     Email varchar(150) not null,
-    PhoneNumber int(10),
+    EmailValidation int (1) not null,
+    PhoneNumber bigint(10),
     UniversityOrInstitute int(6) not null,
     TokenAuthFb varchar(150),
     RegistrationDate timestamp not null,
     primary key (AccountId)
 );
-
+--note: i must add in future the foreign key for the university table
 -- SALES TABLE CREATION
 create table BooksOnSale (
     AccountId int(10) not null,
@@ -36,9 +37,9 @@ create table BooksOnSale (
 -- SEGNALATIONS TABLE CREATION
 create table Segnalations(
     SegnalationId int(10) not null,
-    SegnalatedAccountId int(10) not null,
+    SegnalatedAccountId bigint(10) not null,
     SegnalatedPostId int(10) not null,
-    SegnalatorsAccountId int(10) not null,
+    SegnalatorsAccountId bigint(10) not null,
     SegnalationReasonId int(1) not null,
     SegnalationDate timestamp not null,
     primary key (SegnalationId),

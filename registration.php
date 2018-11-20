@@ -1,17 +1,19 @@
 <?php
     include_once("./classes/SessionManager.php");
-    //include_once("./phps/ConnectionDb.class.php");
+    include_once("./classes/ConnectionDb.php");
     $session = new SessionManager('RealSession',1000);
+    $mysqli = new ConnectionDb('tests');
     if($session->isValid()){
-        echo $_SESSION['username'];
-        echo $_SESSION['email'];
-        echo $_SESSION['universitaOIstituto'];
-        echo $_SESSION['password'];
+        
     }
     else if(isset($_POST['action'])){
         if($_POST['action'] == 'register'){
-            
-            //rimando all index da aggiungere in seguito
+            $error = $mysqli->standardUserRegistration(
+                $_POST['username'],
+                $_POST['email'],
+                $_POST['university'],
+                $_POST['password']
+            );
         }
     }
     else{
@@ -25,19 +27,18 @@
     <body>
         <?php
             if(isset($error)){
-                echo ("<label> $error <label>");
+                echo ("<label>$error<label>");
             }
         ?>
-        <h2>
-        <form id="registration" action="LorR.php" method="POST"> 
-            <label>Registration</label>
+        <form id="registration" action="registration.php" method="POST"> 
+            <label>Registration</label></br>
             <label>Nome:</label></br>
             <input type="text" id="input_txt" name="username"/></br>
             <label>Email:</label></br>
             <input type="email" id="input_txt" name="email"/></br>
             <label>Universita o istituto</label>
             <select name="university" id="input_slct">
-                <option value="Hensemberger">Hensemberger</option>
+                <option value="123456">Hensemberger</option>
             </select></br>
             <label>Password:</label></br>
             <input type="password" id="input_txt" name="password"/></br>
