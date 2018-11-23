@@ -4,27 +4,45 @@
     copy and put the code inside a php query or inside the console in your db graphical interface
 */
 
+-- INSTITUTES AND UNIVERSITIES TABLE CREATION
+create table Inst(
+    InstituteId int(4) not null,
+    InstituteName varchar(50) not null,
+    CityId int(2) not null,
+    CityName varchar(50) not null,
+    ProvinceId int(3) not null,
+    ProvinceName varchar(50) not null,
+    RegionId int(2) not null,
+    RegionName varchar(50) not null,
+    primary key (InstituteId)
+);
+
 -- USERS ACCOUNT TABLE CREATION
 create table Accounts (
     AccountId bigint(10) not null,
     Name varchar(140) not null,
     Password varchar(256) not null,
     Email varchar(150) not null,
-    EmailValidation int (1) not null,
-    PhoneNumber bigint(10),
-    UniversityOrInstitute int(6) not null,
+    EmailValidation bit default 0,
+    PhoneNumber bigint(10) default null,
+    PhoneNumberValidation bit default 0,
+    InstId int(4) not null,
+    InstCityId int(2) not null,
+    InstProvinceId int(3) not null,
+    InstRegionId int(2) not null,
     TokenAuthFb varchar(150),
     RegistrationDate timestamp not null,
-    primary key (AccountId)
+    primary key (AccountId),
+    foreign key (InstId) references Inst (InstituteId)
 );
---note: i must add in future the foreign key for the university table
+
 -- SALES TABLE CREATION
 create table BooksOnSale (
-    AccountId int(10) not null,
-    IdSale int(10) not null,
+    AccountId bigint(10) not null,
+    IdSale bigint(10) not null,
     BookName varchar(100) not null,
-    Isbn int(13) not null,
-    Description varchar(1000),
+    Isbn bigint(13) not null,
+    Description varchar(1000) default 'Non è stata fornita una descrizione del libro in questione',
     PhotoOneUrl varchar(30),
     PhotoTwoUrl varchar(30),
     PhoneNumberVisibility bit not null,
@@ -38,7 +56,7 @@ create table BooksOnSale (
 create table Segnalations(
     SegnalationId int(10) not null,
     SegnalatedAccountId bigint(10) not null,
-    SegnalatedPostId int(10) not null,
+    SegnalatedPostId bigint(10) not null,
     SegnalatorsAccountId bigint(10) not null,
     SegnalationReasonId int(1) not null,
     SegnalationDate timestamp not null,
@@ -49,47 +67,7 @@ create table Segnalations(
 );
 
 --CREATING FEW ACCOUNTS 
-insert into Accounts (
-AccountId,
-Name,
-Password,
-Email,
-PhoneNumber,
-UniversityOrInstitute,
-TokenAuthFb,
-RegistrationDate
-)
-values(
-1000000000,
-'Olly',
-'1234567890ì!"£$%&/()=?QWERTYUIOPé+asdfgjhklò@#zxcvbnm,:_',
-'my@mail.com',
-1234567890,
-123456,
-'fasdfasdf',
-'2018-11-14 19:13:32'
-);
 
-insert into Accounts (
-AccountId,
-Name,
-Password,
-Email,
-PhoneNumber,
-UniversityOrInstitute,
-TokenAuthFb,
-RegistrationDate
-)
-values(
-1000000001,
-'Halb',
-'123456rewrq90ì!"£$%&/()=?QWERTYUIOPé+asdfgjhklò@#zxcvbnm,:_',
-'halb@mail.com',
-1234567891,
-123457,
-'fasdfasdf',
-'2018-11-14 10:13:40'
-);
 
 
 

@@ -11,8 +11,11 @@
             $error = $mysqli->standardUserRegistration(
                 $_POST['username'],
                 $_POST['email'],
-                $_POST['university'],
-                $_POST['password']
+                $_POST['password'],
+                $_POST['regionId'],
+                $_POST['provinceId'],
+                $_POST['cityId'],
+                $_POST['instId']
             );
         }
     }
@@ -37,8 +40,17 @@
             <label>Email:</label></br>
             <input type="email" id="input_txt" name="email"/></br>
             <label>Universita o istituto</label>
-            <select name="university" id="input_slct">
-                <option value="123456">Hensemberger</option>
+            <select name="regionId" id="input_slct">
+                <option value="01">Lombardia</option>
+            </select></br>
+            <select name="provinceId" id="input_slct">
+                <option value="001">Monza e Brianza</option>
+            </select></br>
+            <select name="cityId" id="input_slct">
+                <option value="01">Monza</option>
+            </select></br>
+            <select name="instId" id="input_slct">
+                <option value="0001">Hensemberger</option>
             </select></br>
             <label>Password:</label></br>
             <input type="password" id="input_txt" name="password"/></br>
