@@ -7,7 +7,7 @@ errors index:
 .4 = mail already registered
 */
 class ConnectionDb{
-    private $dbDatas = array("localhost","root","1234");
+    private $dbDatas = array('localhost','root','1234');
     private $connectionLink;
     private $stmt;
     private $error;
@@ -15,7 +15,6 @@ class ConnectionDb{
         $this->connectionLink = new mysqli($this->dbDatas[0],$this->dbDatas[1],$this->dbDatas[2],$dbName); 
     }
     public function standardUserRegistration($username,$email,$password,$instRegionId,$instProvinceId,$instCityId,$instId,$phoneNumber = null){
-        $this->stmt = $this->connectionLink->stmt_init();
         //validating the variables
         ((strlen($username) >= 2 && strlen($username) <= 30) ? $error = 0 : $error = 1 );//input data error
         ((filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($email) < 150) ? $error = 0 : $error = 1);
@@ -35,7 +34,7 @@ class ConnectionDb{
         //checking if the mail is not already used
         $validMail = $this->mailSearch($email);
         if($validMail == 2) return 4;
-        else if($validMail) return 3;
+        else if($validMail == 1) return 3;
         //generating a valid user id
         do{
             $idAccount = random_int(1000000000,9999999999);
@@ -44,9 +43,10 @@ class ConnectionDb{
         }while($error == 1);
         if($error != 0) return $error;
         //preparing the preconstructed queries
+        $this->stmt = $this->connectionLink->stmt_init();
         $this->stmt->prepare('insert into Accounts (AccountId,Name,Password,Email,PhoneNumber,InstId,InstCityId,InstProvinceId,InstRegionId) values (?,?,?,?,?,?,?,?,?)'); 
         //binding the parameters
-        $this->stmt->bind_param("isssiiiii",
+        $this->stmt->bind_param('isssiiiii',
             $idAccount,
             $username,
             $password,
@@ -75,16 +75,18 @@ class ConnectionDb{
             return $this->connectionLink->affected_rows;
         }
     }
-    private function mailSearch($mail){
-        $this->stmt->prepare('select EmailValidation fromAccounts where Email = ?');
-        $this->stmt->bind_param('s',$mail);
+    private function mailSearch($email){
+        $this->stmt = $this->connectionLink->stmt_init();
+        $this->stmt->prepare('select EmailValidation from Accounts where Email = ? limit 1');
+        $this->stmt->bind_param('s',$email);
         $this->stmt->execute();
-        
-        if($this->stmt->num_rows == 0){
-            return 0; //new mail
-        }
+        $this->stmt->store_result();
         $this->stmt->bind_result($valid);
+        if($this->stmt->num_rows == 0){
+            return 0;
+        }
         $this->stmt->fetch();
+        $this->stmt->close();
         if($valid == 1){
             return 2; //validated mail
         }
@@ -92,6 +94,14 @@ class ConnectionDb{
             return 1; //not validated mail 
         }
     } 
+    public function mailCreateValidation($email){
+        // standard preconstructed query initialization
+        $this->stmt = $this->connectionLink->stmt_init();
+        // preparing datas
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        $validationToken = bin2hex(random_bytes(16));
+        $this->stmt->prepare();
+    }
     function __destruct(){
         $this->connectionLink->close(); 
     }

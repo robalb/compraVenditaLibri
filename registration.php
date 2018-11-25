@@ -7,6 +7,13 @@
         
     }
     else if(isset($_POST['action'])){
+        /*
+            errors index:
+            .1 = invalid datas
+            .2 = internal error
+            .3 = mail not validated
+            wsfsg.4 = mail already registered
+        */
         if($_POST['action'] == 'register'){
             $error = $mysqli->standardUserRegistration(
                 $_POST['username'],
@@ -17,6 +24,9 @@
                 $_POST['cityId'],
                 $_POST['instId']
             );
+            if($error == 0){
+                $error = $mysqli->mailCreateValidation($_POST['email']);
+            }
         }
     }
     else{

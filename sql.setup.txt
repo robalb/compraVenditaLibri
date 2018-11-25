@@ -23,9 +23,9 @@ create table Accounts (
     Name varchar(140) not null,
     Password varchar(256) not null,
     Email varchar(150) not null,
-    EmailValidation bit default 0,
+    EmailValidation int(1) default null,
     PhoneNumber bigint(10) default null,
-    PhoneNumberValidation bit default 0,
+    PhoneNumberValidation int(1) default null,
     InstId int(4) not null,
     InstCityId int(2) not null,
     InstProvinceId int(3) not null,
@@ -65,13 +65,15 @@ create table Segnalations(
     foreign key (SegnalatorsAccountId) references Accounts (AccountId),
     foreign key (SegnalatedPostId) references BooksOnSale (IdSale)
 );
+create table MailsValidation(
+    ConfirmationId varchar(60) not null,
+    Mail varchar(150) not null,
+    primary key (ConfirmationId)
+);
 
---CREATING FEW ACCOUNTS 
-
-
-
-
-
+-- CREATING FEW ACCOUNTS 
+ insert into Inst (InstituteId,InstituteName,CityId,CityName,ProvinceId,ProvinceName,RegionId,RegionName) 
+ values (1,'P.Hensemberger',1,'Monza',1,'Monza e Brianza',1,'Lombardia');
 
 
 
