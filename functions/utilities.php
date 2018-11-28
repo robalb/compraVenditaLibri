@@ -1,4 +1,5 @@
 <?php
+    //deleating all the possible jolly characters from an email
     function emailAliasDelete($email){
         $domain = substr($email,strpos($email,'@'));
         $name = str_replace($domain,'',$email);

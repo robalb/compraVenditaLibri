@@ -42,7 +42,6 @@ class ConnectionDb{
         do{
             $idAccount = random_int(1000000000,9999999999);
             $error = $this->validateId($idAccount);
-
         }while($error == 1);
         if($error != 0) return $error;
         //preparing the preconstructed queries
@@ -116,6 +115,7 @@ class ConnectionDb{
             return 2; //this mean that there was an internal error
         }
         else{
+            //return 1 or 0 depend if the id already exist or not
             return $this->connectionLink->affected_rows;
         }
     }

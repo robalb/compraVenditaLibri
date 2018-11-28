@@ -31,7 +31,7 @@
             }
         }
         
-        private function validate(){
+        public function validate(){
             $_SESSION['__is_valid'] = true;
         }
         

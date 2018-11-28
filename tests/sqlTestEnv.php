@@ -20,12 +20,6 @@
         $sql->close();
     }
     function phpTest(){
-        $email = 'bellcra__ne.l480+gigio@gmail.com';
-        $domain = substr($email,strpos($email,'@'));
-        $name = str_replace($domain,'',$email);
-        $name = substr($name,0,(strpos($name,'+'))-(strlen($name)));
-        $sanitizedEmail = str_replace(['.','_'],'',$name).$domain;
-        echo $sanitizedEmail;
     }
     phpTest();
 ?>

@@ -1,10 +1,10 @@
 <?php
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
-    function sendEmail($receiver,$argument,$content){
-        require './libraries/PHPMailer/Exception.php';
-        require './libraries/PHPMailer/PHPMailer.php';
-        require './libraries/PHPMailer/SMTP.php';
+    function sendEmail($receiver,$argument,$content,$noHtmlContent){
+        require_once './libraries/PHPMailer/Exception.php';
+        require_once './libraries/PHPMailer/PHPMailer.php';
+        require_once './libraries/PHPMailer/SMTP.php';
         $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
         try {
             //Server settings
@@ -18,18 +18,18 @@
             $mail->Port = 587;                                    // TCP port to connect to
 
             //Recipients
-            $mail->setFrom('from@example.com', 'Mailer');
+            $mail->setFrom('Debug@compraVenditaLibri.com', 'Debug');
             $mail->addAddress($receiver);               // receiver
             $mail->addReplyTo('info@example.com', 'Information');
-            $mail->addCC('cc@example.com');
-            $mail->addBCC('bcc@example.com');
+            $mail->addCC('anarchianonstop@gmail.com');
+            $mail->addBCC('anarchianonstop@gmail.com');
 
             //Attachments
             //Content
             $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Here is the subject';
-            $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            $mail->Subject = $argument;
+            $mail->Body    = $content;
+            $mail->AltBody = $noHtmlcontent;
 
             $mail->send();
             echo 'Message has been sent';
