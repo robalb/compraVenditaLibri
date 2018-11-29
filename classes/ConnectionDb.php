@@ -18,13 +18,13 @@ class ConnectionDb{
     }
     public function standardUserRegistration($username,$email,$password,$instRegionId,$instProvinceId,$instCityId,$instId,$phoneNumber = null){
         //validating the variables
-        ((strlen($username) >= 2 && strlen($username) <= 30) ? $error = 0 : $error = 1 );//input data error
-        ((filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($email) < 150) ? $error = 0 : $error = 1);
-        ((strlen($password) >= 8 && strlen($password) <= 40) ? $error = 0 : $error = 1);
+        $error += ((strlen($username) >= 2 && strlen($username) <= 30) ? 0 : 1 );//input data error
+        $error += ((filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($email) < 150) ? 0 : 1);
+        $error += ((strlen($password) >= 8 && strlen($password) <= 40) ? 0 : 1);
         if($phoneNumber != null){
-            ((strlen($phoneNumber) === 10) ? $error = 0 : $error = 1);
+            $error += ((strlen($phoneNumber) === 10) ? 1 : 0);
         }
-        if($error != 0) return $error;
+        if($error != 0) return 1;
         //sanitizing the variables
         $username = filter_var($username,FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_ENCODE_HIGH);
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);
