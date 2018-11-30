@@ -22,7 +22,7 @@ class ConnectionDb{
         $error += ((filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($email) < 150) ? 0 : 1);
         $error += ((strlen($password) >= 8 && strlen($password) <= 40) ? 0 : 1);
         if($phoneNumber != null){
-            $error += ((strlen($phoneNumber) === 10) ? 1 : 0);
+            $error += ((strlen($phoneNumber) === 10) ? 0 : 1);
         }
         if($error != 0) return 1;
         //sanitizing the variables
