@@ -36,8 +36,7 @@ class ConnectionDb{
         $password = password_hash($password,PASSWORD_BCRYPT);
         //checking if the mail is not already used
         $validMail = $this->emailSearch($email);
-        if($validMail == 2) return 4;
-        else if($validMail == 1) return 3;
+        if($validMail != 0) return 3;
         //generating a valid user id
         do{
             $idAccount = random_int(1000000000,9999999999);

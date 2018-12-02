@@ -14,7 +14,6 @@
             .1 = invalid datas
             .2 = internal error
             .3 = mail not validated
-            wsfsg.4 = mail already registered
         */
         if($_POST['action'] == 'register'){
             $error = $mysqli->standardUserRegistration(
@@ -42,6 +41,16 @@
     <body>
         <?php
             if(isset($error)){
+                switch(){
+                    case 1:
+                        $error = 'Your datas are not valid, please retry';
+                        break;
+                    case 2:
+                        $error = 'Internal server error';
+                        break;
+                    case 3:
+                        $error = 'Invalid mail';
+                }
                 echo ("<label>$error<label>");
             }
         ?>
