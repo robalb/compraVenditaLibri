@@ -8,17 +8,25 @@ errors index:
 .3 = mail not validated
 .4 = mail already registered
 */
+
+$CONFIG = include('config/config.php');
+
 class ConnectionDb{
-    private $dbDatas = array('localhost','root','1234');
-    private $connectionLink;
+    private $mysqli;
     private $stmt;
-    private $error;
-    function __construct($dbName){
-        $this->connectionLink = new mysqli($this->dbDatas[0],$this->dbDatas[1],$this->dbDatas[2],$dbName); 
+    function __construct(){
+      global $CONFIG;
+      $this->mysqli = new mysqli(
+        $CONFIG['dbHost'],
+        $CONFIG['dbUsername'],
+        $CONFIG['dbPassword'],
+        $CONFIG['dbName']
+      );
     }
     public function standardUserRegistration($username,$email,$password,$instRegionId,$instProvinceId,$instCityId,$instId,$phoneNumber = null){
         //validating the variables
-        $error += ((strlen($username) >= 2 && strlen($username) <= 30) ? 0 : 1 );//input data error
+        $error = 0;
+        $error += ((strlen($username) >= 2 && strlen($username) <= 30) ? 0 : 1 );
         $error += ((filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($email) < 150) ? 0 : 1);
         $error += ((strlen($password) >= 8 && strlen($password) <= 40) ? 0 : 1);
         if($phoneNumber != null){
@@ -28,15 +36,16 @@ class ConnectionDb{
         //sanitizing the variables
         $username = filter_var($username,FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_ENCODE_HIGH);
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-        $email = emailAliasDelete($email);        
+        $email = emailAliasDelete($email);
         $instId = filter_var($instId,FILTER_SANITIZE_NUMBER_INT);
         $instCityId = filter_var($instCityId,FILTER_SANITIZE_NUMBER_INT);
         $instProvinceId = filter_var($instProvinceId,FILTER_SANITIZE_NUMBER_INT);
         $instRegionId = filter_var($instRegionId,FILTER_SANITIZE_NUMBER_INT);
         $password = password_hash($password,PASSWORD_BCRYPT);
-        //checking if the mail is not already used
+        //checking if the mail is not already in use
         $validMail = $this->emailSearch($email);
         if($validMail != 0) return 3;
+        //TODO: remove this, use autoincrement
         //generating a valid user id
         do{
             $idAccount = random_int(1000000000,9999999999);
@@ -44,7 +53,7 @@ class ConnectionDb{
         }while($error == 1);
         if($error != 0) return $error;
         //preparing the preconstructed queries
-        $this->stmt = $this->connectionLink->stmt_init();
+        $this->stmt = $this->mysqli->stmt_init();
         $this->stmt->prepare('insert into Accounts (AccountId,Name,Password,Email,PhoneNumber,InstId,InstCityId,InstProvinceId,InstRegionId) values (?,?,?,?,?,?,?,?,?)'); 
         //binding the parameters
         $this->stmt->bind_param('isssiiiii',
@@ -67,7 +76,7 @@ class ConnectionDb{
     }
     public function emailCreateValidation($email){
         // standard preconstructed query initialization
-        $this->stmt = $this->connectionLink->stmt_init();
+        $this->stmt = $this->mysqli->stmt_init();
         // preparing datas
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);
         $email = emailAliasDelete($email);
@@ -89,9 +98,11 @@ class ConnectionDb{
         return 0;
     }
     private function emailSearch($email){
-        $this->stmt = $this->connectionLink->stmt_init();
+        $this->stmt = $this->mysqli->stmt_init();
         $this->stmt->prepare('select EmailValidation from Accounts where Email = ? limit 1');
+        echo $mysqli->error; //debug
         $this->stmt->bind_param('s',$email);
+        echo $mysqli->error; //debug
         $this->stmt->execute();
         $this->stmt->store_result();
         $this->stmt->bind_result($valid);
@@ -107,19 +118,21 @@ class ConnectionDb{
             return 1; //not validated mail 
         }
     } 
+    //TODO: remove this, add autoincrement
     private function validateId($idAccount){
-        $this->connectionLink->query('select RegistrationDate from Accounts where AccountId ="'.$idAccount.'" limit 1 ;');
-        if($this->connectionLink->errno){
-            echo $this->connectionLink->error;
+        $this->mysqli->query('select RegistrationDate from Accounts where AccountId ="'.$idAccount.'" limit 1 ;');
+        if($this->mysqli->errno){
+            echo $this->mysqli->error;
             return 2; //this mean that there was an internal error
         }
         else{
             //return 1 or 0 depend if the id already exist or not
-            return $this->connectionLink->affected_rows;
+            return $this->mysqli->affected_rows;
         }
     }
     function __destruct(){
-        $this->connectionLink->close(); 
+        $this->mysqli->close(); 
     }
 };
 ?>
+

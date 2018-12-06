@@ -25,8 +25,8 @@
             
             //prevent session fixation attacks, by changing the cookie id if the user is trying to
             //connect using a cookie id that is not recognized
-            if(!isset($_SESSION['__id_is_old'])){
-               $_SESSION['__id_is_old'] = true;
+            if(!isset($_SESSION['__id_is_recognized'])){
+               $_SESSION['__id_is_recognized'] = true;
                if(isset($_COOKIE[$this->defaultName])) session_regenerate_id(true);
             }
         }

@@ -3,8 +3,8 @@
     include_once("./classes/ConnectionDb.php");
     include_once("./functions/utilities.php");
     include_once("./functions/phpMailer.php");
-    $session = new SessionManager('RealSession',1000);
-    $mysqli = new ConnectionDb('tests');
+    $session = new SessionManager();
+    $mysqli = new ConnectionDb();
     if($session->isValid()){
         
     }

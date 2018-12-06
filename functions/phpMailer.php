@@ -1,6 +1,12 @@
 <?php
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
+    require_once 'libraries/PHPMailer/Exception.php';
+    require_once 'libraries/PHPMailer/PHPMailer.php';
+    require_once 'libraries/PHPMailer/SMTP.php';
+
+    $CONFIG = include('config/config.php');
+
     function sendEmail($receiver,$argument,$content,$noHtmlContent){
         require_once './libraries/PHPMailer/Exception.php';
         require_once './libraries/PHPMailer/PHPMailer.php';
@@ -34,7 +40,7 @@
             $mail->send();
             echo 'Message has been sent';
         } catch (Exception $e) {
-            echo $receiver;             
+            echo $receiver;
             echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
         }
     }
